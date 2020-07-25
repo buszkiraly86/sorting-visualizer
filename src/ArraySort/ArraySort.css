@@ -1,0 +1,41 @@
+.ArraySort {
+    background-color: #3f4370;
+}
+
+.ItemContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 16px auto;
+    padding: 16px auto;
+    height: 800px;
+    width: auto;
+    padding-top: 30px;
+}
+
+.sortBtnRow {
+    background-color: #313242;
+}
+
+.sortBtn {
+    margin: 16px 5px;
+    padding: 3px 5px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    outline: none;
+    color: #e3e5ff;
+    font-size: 20px;
+    transition: all 0.2s;
+}
+
+.sortBtn:hover {
+    color: #1ddece;
+}
+
+.sortBtn:disabled {
+    color: #616282;
+    cursor: default;
+}
