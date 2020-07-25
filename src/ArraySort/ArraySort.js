@@ -66,7 +66,7 @@ class ArraySort extends React.Component {
                 <div className="sortBtnRow">
                     <button className="sortBtn" disabled={this.state.sorting} onClick={() => this._reset()}>Generate New Array</button>
                     <button className="sortBtn" disabled={this.state.sorting} onClick={async () => await this._sort("merge")}>Merge Sort</button>
-                    <button className="sortBtn" disabled={this.state.sorting} onClick={async () => await this._sort("quick")}>Quick Sort</button>
+                    <button className="sortBtn" disabled={this.state.sorting} onClick={async () => await this._sort("bubble")}>Bubble Sort</button>
                 </div>
             </div>
         );
