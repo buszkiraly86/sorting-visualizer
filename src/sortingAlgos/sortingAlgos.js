@@ -95,12 +95,42 @@ class BubbleSort {
 
 }
 
+class InsertionSort {
+
+    constructor(update, wait) {
+        this.update = update;
+        this.wait = wait;
+    }
+
+    async sort(items) {
+        for (let i = 1; i < items.length; ++i) {
+            let j = i;
+
+            while (j && items[j - 1] > items[j]) {
+                const tmp = items[j - 1];
+                items[j - 1] = items[j];
+                items[j] = tmp;
+
+                --j;
+
+                await wait(this.wait);
+
+                this.update();
+            }
+
+        }
+    }
+
+}
+
 function createSortingAlgorithm(algorithm, update, wait) {
     switch (algorithm) {
         case "merge":
             return new MergeSort(update, wait);
         case "bubble":
             return new BubbleSort(update, wait);
+        case "insertion":
+            return new InsertionSort(update, wait);
         default:
             throw new Error("Not yet implemented");
     }
