@@ -171,12 +171,76 @@ class QuickSort {
 
 }
 
+class HeapSort {
+
+    constructor(update, wait) {
+        this.update = update;
+        this.wait = wait;
+    }
+
+    async sort(items) {
+        this._heap = items;
+        this._heapLength = items.length;
+
+        await this._buildHeap();
+
+        while (this._heapLength) {
+            const tmp = this._heap[this._heapLength - 1];
+            this._heap[this._heapLength - 1] = this._heap[0];
+            this._heap[0] = tmp;
+
+            this._heapLength -= 1;
+
+            await wait(this.wait);
+            this.update();
+
+            await this._heapify(0);
+        }
+    }
+
+    async _heapify(i) {
+        const leftIndex = 2 * i + 1;
+        const rightIndex = 2 * i + 2;
+        let smallest = i;
+
+        const current = this._heap[i];
+        const left = leftIndex < this._heapLength ? this._heap[leftIndex] : -Infinity;
+        const right = rightIndex < this._heapLength ? this._heap[rightIndex] : -Infinity;
+
+        if (left >= right && left > current) {
+            smallest = leftIndex;
+        } else if (right >= left && right > current) {
+            smallest = rightIndex;
+        }
+
+        if (smallest !== i) {
+            const tmp = this._heap[i];
+            this._heap[i] = this._heap[smallest];
+            this._heap[smallest] = tmp;
+
+            await wait(this.wait);
+            this.update();
+
+            await this._heapify(smallest);
+        }
+    }
+
+    async _buildHeap() {
+        for (let i = Math.floor(this._heapLength / 2); i >= 0; --i) {
+            await this._heapify(i);
+        }
+    }
+
+}
+
 function createSortingAlgorithm(algorithm, update, wait) {
     switch (algorithm) {
         case "merge":
             return new MergeSort(update, wait);
         case "quick":
             return new QuickSort(update, wait);
+        case "heap":
+            return new HeapSort(update, wait);
         case "bubble":
             return new BubbleSort(update, wait);
         case "insertion":
