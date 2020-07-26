@@ -123,10 +123,60 @@ class InsertionSort {
 
 }
 
+class QuickSort {
+
+    constructor(update, wait) {
+        this.update = update;
+        this.wait = wait;
+    }
+
+    async _partition(items, left, right) {
+        const pivot = items[right - 1];
+
+        let i, j;
+        for (j = left, i = left - 1; j < right - 1; ++j) {
+            if (items[j] < pivot) {
+                i += 1;
+
+                const tmp = items[i];
+                items[i] = items[j];
+                items[j] = tmp;
+
+                await wait(this.wait);
+                this.update();
+            }
+        }
+
+        items[right - 1] = items[i + 1];
+        items[i + 1] = pivot;
+
+        await wait(this.wait);
+        this.update();
+
+        return i + 1;
+    }
+
+    async _sort(items, left, right) {
+        if (right - left <= 1) return;
+
+        const pivotIndex = await this._partition(items, left, right);
+
+        await this._sort(items, left, pivotIndex);
+        await this._sort(items, pivotIndex, right);
+    }
+
+    async sort(items) {
+        return this._sort(items, 0, items.length);
+    }
+
+}
+
 function createSortingAlgorithm(algorithm, update, wait) {
     switch (algorithm) {
         case "merge":
             return new MergeSort(update, wait);
+        case "quick":
+            return new QuickSort(update, wait);
         case "bubble":
             return new BubbleSort(update, wait);
         case "insertion":
