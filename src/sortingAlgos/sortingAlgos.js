@@ -43,20 +43,20 @@ class MergeSort {
             await wait(this.wait);
 
             items.splice(begin, res.length, ...res);
-            this.update();
+            this.update(items);
         }
 
         while (i !== left.length) {
             res.push(left[i]);
             i += 1;
             items.splice(begin, res.length, ...res);
-            this.update();
+            this.update(items);
         }
         while (j !== right.length) {
             res.push(right[j]);
             j += 1;
             items.splice(begin, res.length, ...res);
-            this.update();
+            this.update(items);
         }
 
         return res;
@@ -86,7 +86,7 @@ class BubbleSort {
 
                     await wait(this.wait);
 
-                    this.update();
+                    this.update(items);
                 }
             }
 
@@ -114,8 +114,7 @@ class InsertionSort {
                 --j;
 
                 await wait(this.wait);
-
-                this.update();
+                this.update(items);
             }
 
         }
@@ -143,7 +142,7 @@ class QuickSort {
                 items[j] = tmp;
 
                 await wait(this.wait);
-                this.update();
+                this.update(items);
             }
         }
 
@@ -151,7 +150,7 @@ class QuickSort {
         items[i + 1] = pivot;
 
         await wait(this.wait);
-        this.update();
+        this.update(items);
 
         return i + 1;
     }
@@ -192,7 +191,7 @@ class HeapSort {
             this._heapLength -= 1;
 
             await wait(this.wait);
-            this.update();
+            this.update(this._heap);
 
             await this._heapify(0);
         }
@@ -219,7 +218,7 @@ class HeapSort {
             this._heap[smallest] = tmp;
 
             await wait(this.wait);
-            this.update();
+            this.update(this._heap);
 
             await this._heapify(smallest);
         }

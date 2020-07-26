@@ -40,12 +40,13 @@ class ArraySort extends React.Component {
         state.sorting = true;
         this.setState(state);
 
-        const update = () => {
+        const update = (items) => {
+            state.items = [...items];
             this.setState(state);
         }
 
         const sortingAlgorithm = createSortingAlgorithm(algo, update, 10);
-        await sortingAlgorithm.sort(state.items);
+        await sortingAlgorithm.sort([...state.items]);
 
         state.sorting = false;
         this.setState(state);
