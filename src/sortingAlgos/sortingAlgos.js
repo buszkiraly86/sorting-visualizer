@@ -249,6 +249,4 @@ function createSortingAlgorithm(algorithm, update, wait) {
     }
 }
 
-module.exports = {
-    createSortingAlgorithm
-};
+export { createSortingAlgorithm };
